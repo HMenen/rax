@@ -3,7 +3,7 @@
 var stripAnsi = require('strip-ansi');
 var formatWebpackMessages = require('./formatWebpackMessages');
 
-var wsUrl = `ws://${window.location.hostname}:${window.location.port}/sockjs-node/websocket`;
+var wsUrl = `ws://${__DEV_HOST__}:${__DEV_PORT__}/sockjs-node/websocket`;
 // Connect to WebpackDevServer via a socket.
 console.log('The development server at', wsUrl);
 var connection = new WebSocket(wsUrl);

@@ -2,6 +2,7 @@
 
 const path = require('path');
 const address = require('address');
+const webpack = require('webpack');
 
 const hmrClient = require.resolve('../../hmr/webpackHotDevClient.entry');
 const UNIVERSAL_APP_SHELL_LOADER = require.resolve('universal-app-shell-loader');
@@ -18,6 +19,13 @@ module.exports = (config, context) => {
   config.entry('index')
     .add(hmrClient)
     .add(`${UNIVERSAL_APP_SHELL_LOADER}?type=weex!${appEntry}`);
+
+  config
+    .plugin('defineDevDefine')
+    .use(webpack.DefinePlugin, [{
+      __DEV_HOST__: JSON.stringify(address.ip()),
+      __DEV_PORT__: JSON.stringify('9999')
+    }]);
 
   config.devServer
     .compress(true)
